@@ -8,7 +8,7 @@ const validateProjectID = (req,res,next) => {
             req.foundProject = (project)
             next()
         }else{
-            res.status(404).json({message: "Project with given ID not found"})
+            res.status(404).json({message: "Project with given ID not found."})
         }
     })
 }
@@ -17,11 +17,20 @@ const validateProjectData = (req,res,next) => {
     if(req.body.name && req.body.description){
         next()
     }else{
-        res.status(400).json({message: "Project needs a name and description"})
+        res.status(400).json({message: "Project needs a name and description."})
+    }
+}
+
+const validateProjectCompleted = (req,res,next) => {
+    if(req.body.completed){
+        next()
+    }else{
+        res.status(400).json({message: "Project must be completed."})
     }
 }
 
 module.exports = {
     validateProjectID,
-    validateProjectData
+    validateProjectData,
+    validateProjectCompleted
 }
