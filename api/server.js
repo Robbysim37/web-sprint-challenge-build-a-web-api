@@ -2,6 +2,7 @@ const express = require('express');
 const server = express();
 const bodyParser = require("body-parser")
 const projectsRouter = require("./projects/projects-router")
+const actionsRouter = require("./actions/actions-router")
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
@@ -12,5 +13,7 @@ server.use(bodyParser.urlencoded({ extended: true }))
 // Do NOT `server.listen()` inside this file!
 
 server.use("/api/projects", projectsRouter)
+server.use("/api/actions", actionsRouter)
+
 
 module.exports = server;

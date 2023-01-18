@@ -28,13 +28,26 @@ router.get("/:id", validateProjectID, (req, res) => {
 router.put("/:id", validateProjectID, validateProjectData, (req, res) => {
     const id = req.params.id
     projectModelFunctions.update(id,req.body).then(changedProject => {
-        res.status(200).json(changedProject)
+        if(req.body.completed){
+        res.status(200).json(changedProject)            
+        }else{
+            res.status(400).json(req.body)
+        }
     })
 })
 
 router.delete("/:id", validateProjectID, (req, res) => {
     const id = req.params.id
-    projectModelFunctions.remove(id)
+    projectModelFunctions.remove(id).then(response => {
+        res.status(200).json()
+    })
+})
+
+router.get("/:id/actions", (req, res) => {
+    const id = req.params.id
+    projectModelFunctions.getProjectActions(id).then(actions => {
+        res.status(200).json(actions)
+    })
 })
 
 module.exports = router
